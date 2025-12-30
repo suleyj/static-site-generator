@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -14,8 +14,9 @@ class TestHTMLNode(unittest.TestCase):
                 "target": "_blank",
             },
         )
-        self.assertEqual(node.props_to_html(), ' href="https://www.google.com" target="_blank"')
-
+        self.assertEqual(
+            node.props_to_html(), ' href="https://www.google.com" target="_blank"'
+        )
 
     def test_props_to_html_empty(self):
         node = HTMLNode(
@@ -23,8 +24,7 @@ class TestHTMLNode(unittest.TestCase):
             "hey",
             [HTMLNode("p")],
         )
-        self.assertEqual(node.props_to_html(), '')
-
+        self.assertEqual(node.props_to_html(), "")
 
     def test_to_html_exception(self):
         node = HTMLNode(
@@ -33,6 +33,16 @@ class TestHTMLNode(unittest.TestCase):
             [HTMLNode("p")],
         )
         self.assertRaises(NotImplementedError, node.to_html)
+
+
+    def test_leaf_to_html_p(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_leaf_to_html_bold(self):
+        node = LeafNode("b", "Make me bold")
+        self.assertEqual(node.to_html(), "<b>Make me bold</b>")
+
 
 if __name__ == "__main__":
     unittest.main()
