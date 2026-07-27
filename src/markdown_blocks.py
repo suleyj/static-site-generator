@@ -1,12 +1,14 @@
 from enum import Enum
 
+from utils import markdown_to_blocks, text_node_to_html_node, text_to_textnodes
+
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
     HEADING = "heading"
     CODE = "code"
     QUOTE = "quote"
-    UNORDERED_LIST = "unordered_list"
-    ORDERED_LIST = "ordered_list"
+    ULIST = "unordered_list"
+    OLIST = "ordered_list"
 
 def block_to_block_type(block):
     if is_heading_block(block):
@@ -16,9 +18,9 @@ def block_to_block_type(block):
     if is_quote_block(block):
         return BlockType.QUOTE
     if is_unordered_list_block(block):
-        return BlockType.UNORDERED_LIST
+        return BlockType.ULIST
     if is_ordered_list_block(block):
-        return BlockType.ORDERED_LIST
+        return BlockType.OLIST
 
 
     
@@ -46,23 +48,6 @@ def is_heading_block(block):
 
     return True
 
-# def is_heading_block(block):
-#     if block == "":
-#         return False
-#
-#     for i in range(1, len(block) - 1):
-#         if block[i - 1] != "#":
-#             return False
-#         if block[i] == " ":
-#             return True
-#
-#         if i == 6:
-#             break;
-#
-#     return False
-            
-        
-        
 def is_code_block(block):
     start_tick_count = 0
     end_tick_count = 0
