@@ -15,7 +15,7 @@ class TestHTMLNode(unittest.TestCase):
             },
         )
         self.assertEqual(
-            node.props_to_html(), ' href="https://www.google.com" target="_blank"'
+            node.props_to_html(), 'href="https://www.google.com" target="_blank"'
         )
 
     def test_props_to_html_empty(self):

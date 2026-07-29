@@ -164,8 +164,8 @@ This is another paragraph with _italic_ text and `code` here
 
     def test_ordered_list(self):
         block = """
-1 This is another paragraph with _italic_ text and `code` here
-2 This is the same paragraph on a new line
+1. This is another paragraph with _italic_ text and `code` here
+2. This is the same paragraph on a new line
 """
         block = block.strip()
 

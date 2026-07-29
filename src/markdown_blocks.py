@@ -22,8 +22,6 @@ def block_to_block_type(block):
     if is_ordered_list_block(block):
         return BlockType.OLIST
 
-
-    
     return BlockType.PARAGRAPH
 
 def is_heading_block(block):
@@ -110,7 +108,7 @@ def is_ordered_list_block(block):
             return False
         if line[0].isdigit() and int(line[0]) != num:
             return False
-        if line[1] != ' ':
+        if line[1] != '.':
             return False
         num+=1
 
