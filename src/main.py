@@ -1,8 +1,7 @@
 import os
-from re import template
 import shutil
 import  sys
-from web_utils import generate_page, generate_page_revursive
+from web_utils import generate_page_revursive
 
 def copy_tree(source_path, destination_path):
     ls = os.listdir(source_path) 
