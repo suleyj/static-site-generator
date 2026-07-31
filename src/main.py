@@ -4,6 +4,8 @@ import  sys
 from web_utils import generate_page_revursive
 
 def copy_tree(source_path, destination_path):
+    if not os.path.isdir(source_path):
+        return
     ls = os.listdir(source_path) 
     
     for item in ls:
