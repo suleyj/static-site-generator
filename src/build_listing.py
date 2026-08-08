@@ -1,7 +1,6 @@
 import re
 import os
 from datetime import datetime
-from dateutil import parser
 
 def extract_title(markdown):
     for line in markdown.splitlines():
@@ -21,7 +20,7 @@ def extract_date(markdown):
     return date
 
 def format_date(date_str):
-    date_obj = parser.parse(date_str)
+    date_obj = datetime.strptime(date_str, "%Y-%m-%d")
     return date_obj.strftime("%b %d %Y")
 
 
