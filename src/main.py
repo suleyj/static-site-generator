@@ -2,6 +2,7 @@ import os
 import shutil
 import  sys
 from web_utils import generate_page_revursive
+from build_listing import get_blog_list, create_blog_listing
 
 def copy_tree(source_path, destination_path):
     if not os.path.isdir(source_path):
@@ -33,7 +34,7 @@ def main():
     static_path = 'static'  
     build_path = 'docs'  
     content_path = "content"
-    template_path = "template.html"
+    template_path = "blog_template.html"
     base_path = "/"
 
     if os.path.exists(build_path) :
@@ -47,6 +48,9 @@ def main():
 
     generate_page_revursive(content_path, template_path, build_path, base_path)
     
+    if len(sys.argv) > 2 and sys.argv[2] == "--listing" :
+        blog_list = get_blog_list("content/blog", "year_component.html", "post_component.html")
+        create_blog_listing('docs/blog/index.html', "blog_list_template.html", blog_list) 
     
 
 if __name__ == "__main__":

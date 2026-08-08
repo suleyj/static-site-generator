@@ -1,22 +1,13 @@
 import os
 from md_to_html import markdown_to_html_node
-
-
-def extract_title(markdown):
-    for line in markdown.splitlines():
-        stripped = line.strip()
-        parts = stripped.split(" ", 1)
-        if len(parts) == 2 and parts[0] == "#":
-            return parts[1].strip()
-    raise Exception("no h1 in markdown")
+from build_listing import extract_title, extract_date, format_date
 
 def generate_page(from_path, template_path, dest_path, base_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
-    # read and store md
+    
     md_file = open(from_path)
     md = md_file.read()
 
-    # read and store md
     template_file = open(template_path)
     template = template_file.read()
 
@@ -25,10 +16,17 @@ def generate_page(from_path, template_path, dest_path, base_path):
 
     title = extract_title(md)
 
-    template = template.replace("{{ Title }}", title)
-    template = template.replace("{{ Content }}", html)
+    template = template.replace("{{title}}", title)
+    template = template.replace("{{content}}", html)
     template = template.replace('href="/', f'href="{base_path}')
     template = template.replace('src="/', f'src="{base_path}')
+
+    try:
+        date = extract_date(md)
+        formatted_date = format_date(date)
+        template = template.replace(date, formatted_date)
+    except Exception:
+        pass
 
     dest_path_name = os.path.dirname(dest_path)
     os.makedirs(dest_path_name, exist_ok=True)
@@ -47,5 +45,3 @@ def generate_page_revursive(from_path, template_path, dest_path, base_path):
             generate_page(item_path, template_path, item_dest_path, base_path)
         else:
             generate_page_revursive(item_path, template_path, item_dest_path, base_path)
-
-

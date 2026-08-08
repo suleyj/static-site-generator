@@ -62,9 +62,6 @@ class ParentNode(HTMLNode):
 
     def to_html(self):
         if not self.children:
-            print(self.tag)
-            print(self.children)
-            print(self.props)
             raise ValueError('Missing children value')
 
         if not self.tag:
